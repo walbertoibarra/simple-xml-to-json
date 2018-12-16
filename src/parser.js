@@ -64,7 +64,7 @@ const getCloseTag = (str, openTag) => {
   const closeTag = {}
 
   closeTag.start = str.lastIndexOf(`</${openTag.tagName}>`)
-  // TODO: Validate there are no other tags with the same name on sibling 
+  // TODO: Validate there are no other tags with the same name on sibling
   // or child elements.
   closeTag.end = str.indexOf('>', closeTag.start)
   closeTag.tagName = str.substring(closeTag.start + 1, closeTag.end)
