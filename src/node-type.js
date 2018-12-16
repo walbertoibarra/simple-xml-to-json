@@ -1,11 +1,11 @@
 'use strict'
 
 const NodeType = {
-  element: 1,
-  text: 2,
+  element: 'element',
+  text: 'text',
   properties: {
-    '1': { id: 1, name: 'Element', description: 'Element node' },
-    '2': { id: 2, name: 'Text', description: 'Text node' }
+    'element': { id: 'element', name: 'Element', description: 'Element node' },
+    'text': { id: 'element', name: 'Text', description: 'Text node' }
   }
 }
 

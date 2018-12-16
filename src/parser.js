@@ -2,26 +2,33 @@
 
 const NodeType = require('./node-type')
 
-const parseString = (str) => {}
+const parseString = (str) => {
+  const nodes = []
+  let index = 0
 
-const getTextNode = (str) => {
-  const textNode = {}
+  while (true) {
+    const tag = getTag(str, index)
 
-  textNode.type = NodeType.text
-  textNode.data = str
+    if (tag === null) {
+      break
+    }
 
-  return textNode
-}
+    if (typeof tag === 'object') {
+      const elementNode = getElementNode(tag)
 
-const getElementNode = (tag, index) => {
-  const elementNode = {}
+      nodes.push(elementNode)
+      index = tag.closeTag.end + 1
+    }
 
-  elementNode.type = NodeType.element
-  elementNode.innerXml = tag.innerXml
-  elementNode.tagName = tag.openTag.tagName
-  // elementNode.childNodes = parseTag(tag.innerXml, index)
+    if (typeof tag === 'string') {
+      const textNode = getTextNode(tag)
 
-  return elementNode
+      nodes.push(textNode)
+      index += tag.length
+    }
+  }
+
+  return nodes
 }
 
 const getTag = (str, index) => {
@@ -29,14 +36,28 @@ const getTag = (str, index) => {
 
   tag.openTag = getOpenTag(str, index)
 
-  if (tag.openTag.start > index || tag.openTag.start === -1) {
+  if (tag.openTag.start > index || (tag.openTag.start === -1 && index < str.length - 1)) {
     return str.substring(index, tag.openTag.start === -1 ? undefined : tag.openTag.start)
+  }
+
+  if (tag.openTag.start === -1) {
+    return null
   }
 
   tag.closeTag = getCloseTag(str, tag.openTag)
   tag.innerXml = str.substring(tag.openTag.end + 1, tag.closeTag.start)
 
   return tag
+}
+
+const getOpenTag = (str, index) => {
+  const openTag = {}
+
+  openTag.start = str.indexOf('<', index)
+  openTag.end = str.indexOf('>', openTag.start)
+  openTag.tagName = str.substring(openTag.start + 1, openTag.end)
+
+  return openTag
 }
 
 const getCloseTag = (str, openTag) => {
@@ -51,14 +72,24 @@ const getCloseTag = (str, openTag) => {
   return closeTag
 }
 
-const getOpenTag = (str, index) => {
-  const openTag = {}
+const getElementNode = (tag) => {
+  const elementNode = {}
 
-  openTag.start = str.indexOf('<', index)
-  openTag.end = str.indexOf('>', openTag.start)
-  openTag.tagName = str.substring(openTag.start + 1, openTag.end)
+  elementNode.type = NodeType.element
+  elementNode.innerXml = tag.innerXml
+  elementNode.tagName = tag.openTag.tagName
+  elementNode.childNodes = parseString(tag.innerXml)
 
-  return openTag
+  return elementNode
+}
+
+const getTextNode = (str) => {
+  const textNode = {}
+
+  textNode.type = NodeType.text
+  textNode.data = str
+
+  return textNode
 }
 
 module.exports = {
