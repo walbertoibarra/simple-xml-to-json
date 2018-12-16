@@ -41,7 +41,7 @@ describe('parser.getTag(str, index)', () => {
     assert.strictEqual(tag.innerXml, '\n  <amount>10.00</amount>\n  <from>Evan</from>\n  <to>PayStand</to>\n')
   })
 
-  it('should return the right `tag` according to given index', () => {
+  it('should return the right `tag` according to given `index`', () => {
     const tag = getTag(xmlStr, 12)
 
     assert.strictEqual(tag.openTag.tagName, 'amount')
