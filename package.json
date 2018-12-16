@@ -5,7 +5,7 @@
   "description": "",
   "main": "src/simple-xml-to-json.js",
   "scripts": {
-    "test": "standard && mocha"
+    "test": "standard && mocha --recursive"
   },
   "license": "MIT",
   "dependencies": {},

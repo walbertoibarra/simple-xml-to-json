@@ -2,17 +2,22 @@
 
 const parseString = (str) => {}
 
-const _getOpenTag = (str, index) => {
-  const openTag = {}
+const getTag = (str, index) => {
+  const tag = {}
 
-  openTag.start = str.indexOf('<', index)
-  openTag.end = str.indexOf('>', openTag.start)
-  openTag.tagName = str.substring(openTag.start + 1, openTag.end)
+  tag.openTag = getOpenTag(str, index)
 
-  return openTag
+  if (tag.openTag.start > index || tag.openTag.start === -1) {
+    return str.substring(index, tag.openTag.start === -1 ? undefined : tag.openTag.start)
+  }
+
+  tag.closeTag = getCloseTag(str, tag.openTag)
+  tag.innerXml = str.substring(tag.openTag.end + 1, tag.closeTag.start)
+
+  return tag
 }
 
-const _getCloseTag = (str, openTag) => {
+const getCloseTag = (str, openTag) => {
   const closeTag = {}
 
   closeTag.start = str.lastIndexOf(`</${openTag.tagName}>`)
@@ -22,8 +27,19 @@ const _getCloseTag = (str, openTag) => {
   return closeTag
 }
 
+const getOpenTag = (str, index) => {
+  const openTag = {}
+
+  openTag.start = str.indexOf('<', index)
+  openTag.end = str.indexOf('>', openTag.start)
+  openTag.tagName = str.substring(openTag.start + 1, openTag.end)
+
+  return openTag
+}
+
 module.exports = {
-  parseString,
-  _getOpenTag,
-  _getCloseTag
+  getCloseTag,
+  getOpenTag,
+  getTag,
+  parseString
 }
