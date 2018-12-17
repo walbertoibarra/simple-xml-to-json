@@ -19,13 +19,6 @@ describe('parser.getElementNode(tag)', () => {
     assert.strictEqual(elementNode.type, NodeType.element)
   })
 
-  it('should return object with a `innerXml` property', () => {
-    const tag = getTag(xmlStr, 0)
-    const elementNode = getElementNode(tag, 0)
-
-    assert.strictEqual(elementNode.innerXml, '\n  <amount>10.00</amount>\n  <from>Evan</from>\n  <to>PayStand</to>\n')
-  })
-
   it('should return object with a `tagName` property', () => {
     const tag = getTag(xmlStr, 0)
     const elementNode = getElementNode(tag, 0)
