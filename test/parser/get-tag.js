@@ -2,7 +2,7 @@
 
 const { assert } = require('chai')
 
-const { getTag } = require('../../src/parser')
+const { getTag } = require('../../lib/parser')
 
 let xmlStr
 

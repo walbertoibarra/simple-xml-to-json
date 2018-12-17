@@ -2,8 +2,8 @@
 
 const { assert } = require('chai')
 
-const { hasOnlyTextNode } = require('../../src/builder')
-const { parseString } = require('../../src/parser')
+const { hasOnlyTextNode } = require('../../lib/builder')
+const { parseString } = require('../../lib/parser')
 
 let xmlDoc
 

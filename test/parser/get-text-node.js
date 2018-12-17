@@ -2,8 +2,8 @@
 
 const { assert } = require('chai')
 
-const { getTextNode, getTag } = require('../../src/parser')
-const NodeType = require('../../src/node-type')
+const { getTextNode, getTag } = require('../../lib/parser')
+const NodeType = require('../../lib/node-type')
 
 let xmlStr
 

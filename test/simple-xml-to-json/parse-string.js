@@ -2,7 +2,7 @@
 
 const { assert } = require('chai')
 
-const { parseString } = require('../../src/simple-xml-to-json')
+const { parseString } = require('../../lib/simple-xml-to-json')
 
 let xmlStr
 

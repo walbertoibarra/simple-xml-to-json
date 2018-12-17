@@ -3,7 +3,7 @@
   "name": "@walbertoibarra/simple-xml-to-json",
   "version": "0.1.0",
   "description": "",
-  "main": "src/simple-xml-to-json.js",
+  "main": "lib/simple-xml-to-json.js",
   "scripts": {
     "test": "standard && mocha --recursive"
   },

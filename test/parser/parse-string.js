@@ -3,8 +3,8 @@
 const _ = require('lodash')
 const { assert } = require('chai')
 
-const NodeType = require('../../src/node-type')
-const { parseString } = require('../../src/parser')
+const NodeType = require('../../lib/node-type')
+const { parseString } = require('../../lib/parser')
 
 let xmlStr
 let nestedXmlStr

@@ -2,8 +2,8 @@
 
 const { assert } = require('chai')
 
-const { buildJson } = require('../../src/builder')
-const { parseString } = require('../../src/parser')
+const { buildJson } = require('../../lib/builder')
+const { parseString } = require('../../lib/parser')
 
 let xmlDoc
 
