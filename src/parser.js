@@ -36,7 +36,7 @@ const getTag = (str, index) => {
 
   tag.openTag = getOpenTag(str, index)
 
-  if (tag.openTag.start > index || (tag.openTag.start === -1 && index < str.length - 1)) {
+  if (tag.openTag.start > index || (tag.openTag.start === -1 && index <= str.length - 1)) {
     return str.substring(index, tag.openTag.start === -1 ? undefined : tag.openTag.start)
   }
 
@@ -62,14 +62,33 @@ const getOpenTag = (str, index) => {
 
 const getCloseTag = (str, openTag) => {
   const closeTag = {}
+  const openTagRepeated = indicesOf(str.substring(openTag.end), `<${openTag.tagName}>`).length
+  const closeTags = indicesOf(str.substring(openTag.end), `</${openTag.tagName}>`).map(i => i + openTag.end)
+  const indexOfCloseTag = closeTags.length - openTagRepeated - 1
 
-  closeTag.start = str.lastIndexOf(`</${openTag.tagName}>`)
-  // TODO: Validate there are no other tags with the same name on sibling
-  // or child elements.
+  closeTag.start = closeTags[indexOfCloseTag]
   closeTag.end = str.indexOf('>', closeTag.start)
   closeTag.tagName = str.substring(closeTag.start + 1, closeTag.end)
 
   return closeTag
+}
+
+const indicesOf = (str, searchValue) => {
+  const indices = []
+  let currentIndex = 0
+
+  while (true) {
+    const index = str.indexOf(searchValue, currentIndex)
+
+    if (index === -1) {
+      break
+    }
+
+    indices.push(index)
+    currentIndex = index + searchValue.length
+  }
+
+  return indices
 }
 
 const getElementNode = (tag) => {
@@ -98,5 +117,6 @@ module.exports = {
   getOpenTag,
   getTag,
   getTextNode,
+  indicesOf,
   parseString
 }

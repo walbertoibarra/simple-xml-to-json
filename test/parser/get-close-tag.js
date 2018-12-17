@@ -38,4 +38,13 @@ describe('parser.getCloseTag(str, openTag)', () => {
 
     assert.strictEqual(closeTag.tagName, '/amount')
   })
+
+  it('should get the right `closeTag` even if there are other tags with the same name on siblin or child elements', () => {
+    const xmlStr = '<nutrition><daily-values><total-fat>65</total-fat><saturated-fat>20</saturated-fat><cholesterol>300</cholesterol><sodium>2400</sodium><carb>300</carb><fiber>25</fiber><protein>50</protein></daily-values><food><name>Avocado Dip</name><mfr>Sunnydale</mfr><serving>29</serving><total-fat>11</total-fat><saturated-fat>3</saturated-fat><cholesterol>5</cholesterol><sodium>210</sodium><carb>2</carb><fiber>0</fiber><protein>1</protein><vitamins><a>0</a><c>0</c></vitamins><minerals><ca>0</ca><fe>0</fe></minerals></food></nutrition>'
+    const openTag = getOpenTag(xmlStr, 83)
+    const closeTag = getCloseTag(xmlStr, openTag)
+
+    assert.strictEqual(closeTag.tagName, '/cholesterol')
+    assert.strictEqual(closeTag.start, 99)
+  })
 })

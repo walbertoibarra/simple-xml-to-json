@@ -7,7 +7,7 @@ const { parseString } = require('../../src/parser')
 
 let xmlDoc
 
-describe('builder.buildJson(xmlDoc)', () => {
+describe('builder.hasOnlyTextNode(xmlDoc)', () => {
   before(() => {
     const xmlStr = '<shipment>\n  <item>some item</item>\n  <from>Evan</from>\n  <to>PayStand</to>\n  <address>\n    <street>100 Enterprise Way</street>\n    <city>Scotts Valley</city>\n    <zip>95066</zip>\n  </address>\n</shipment>'
 

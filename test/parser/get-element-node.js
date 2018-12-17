@@ -38,7 +38,7 @@ describe('parser.getElementNode(tag)', () => {
     const elementNode = getElementNode(tag, 0)
 
     assert.isArray(elementNode.childNodes)
-    assert.lengthOf(elementNode.childNodes, 6) // 3 element nodes and 3 text nodes (new lines and spaces).
+    assert.lengthOf(elementNode.childNodes, 7) // 3 element nodes and 4 text nodes (new lines and spaces).
     assert.strictEqual(elementNode.childNodes[0].type, NodeType.text)
     assert.strictEqual(elementNode.childNodes[0].data, '\n  ')
     assert.strictEqual(elementNode.childNodes[1].type, NodeType.element)

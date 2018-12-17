@@ -33,7 +33,7 @@ describe('parser.parseString(str)', () => {
     const xmlObj = parseString(xmlStr)
     const count = _.countBy(xmlObj[0].childNodes, 'type')
 
-    assert.lengthOf(xmlObj[0].childNodes, 6)
+    assert.lengthOf(xmlObj[0].childNodes, 7)
     assert.strictEqual(count[NodeType.properties.element.id], 3)
     assert.strictEqual(count[NodeType.properties.text.id], 3)
   })
@@ -51,7 +51,7 @@ describe('parser.parseString(str)', () => {
     const xmlObj = parseString(nestedXmlStr)
 
     assert.strictEqual(xmlObj[0].childNodes[1].type, NodeType.element)
-    assert.lengthOf(xmlObj[0].childNodes, 8)
+    assert.lengthOf(xmlObj[0].childNodes, 9)
     assert.lengthOf(xmlObj[0].childNodes[7].childNodes, 7)
     assert.strictEqual(xmlObj[0].childNodes[7].childNodes[3].childNodes[0].data, 'Scotts Valley')
   })
