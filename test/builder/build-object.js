@@ -2,12 +2,12 @@
 
 const { assert } = require('chai')
 
-const { buildJson } = require('../../lib/builder')
+const { buildObject } = require('../../lib/builder')
 const { parseString } = require('../../lib/parser')
 
 let xmlDoc
 
-describe('builder.buildJson(xmlDoc)', () => {
+describe('builder.buildObject(xmlDoc)', () => {
   before(() => {
     const xmlStr = '<shipment>\n  <item>some item</item>\n  <from>Evan</from>\n  <to>PayStand</to>\n  <address>\n    <street>100 Enterprise Way</street>\n    <city>Scotts Valley</city>\n    <zip>95066</zip>\n  </address>\n</shipment>'
 
@@ -15,31 +15,31 @@ describe('builder.buildJson(xmlDoc)', () => {
   })
 
   it('should return an object', () => {
-    const result = buildJson(xmlDoc)
+    const result = buildObject(xmlDoc)
 
     assert.isObject(result)
   })
 
   it('should return an object with 1 key at first level', () => {
-    const result = buildJson(xmlDoc)
+    const result = buildObject(xmlDoc)
 
     assert.hasAllKeys(result, ['shipment'])
   })
 
   it('should return an object with 4 keys at second level', () => {
-    const result = buildJson(xmlDoc)
+    const result = buildObject(xmlDoc)
 
     assert.hasAllKeys(result.shipment, ['item', 'from', 'to', 'address'])
   })
 
   it('should return an object with 3 keys at third level', () => {
-    const result = buildJson(xmlDoc)
+    const result = buildObject(xmlDoc)
 
     assert.hasAllKeys(result.shipment.address, ['street', 'city', 'zip'])
   })
 
   it('should return a valid JSON object', () => {
-    const result = buildJson(xmlDoc)
+    const result = buildObject(xmlDoc)
     const expectedJson = {
       shipment: {
         item: 'some item',

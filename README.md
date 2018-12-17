@@ -24,7 +24,7 @@ fs.readFile('./person.xml', { encoding: 'utf-8' }, (error, data) => {
 
   const parsedJson = simpleXmlToJson.parseString(data)
 
-  console.log(parsedJson) // { person: { name: 'John Doe', age: '30' } }
+  console.log(parsedJson) // {"person":{"name":"John Doe","age":"30"}}
 })
 ~~~
 
@@ -38,7 +38,7 @@ const simpleXmlToJson = require('@walbertoibarra/simple-xml-to-json')
 const xmlStr = '<person><name>John Doe</name><age>30</age></person>'
 const parsedJson = simpleXmlToJson.parseString(xmlStr)
 
-console.log(parsedJson) // { person: { name: 'John Doe', age: '30' } }
+console.log(parsedJson) // {"person":{"name":"John Doe","age":"30"}}
 ~~~
 
 ## Limitations

@@ -13,7 +13,7 @@ describe('simpleXmlToJson.parseString(str)', () => {
 
   it('should parse XML string to JSON', () => {
     const result = parseString(xmlStr)
-    const expectedJson = {
+    const expectedJs = {
       nutrition: {
         'daily-values': {
           'total-fat': '65',
@@ -47,6 +47,6 @@ describe('simpleXmlToJson.parseString(str)', () => {
       }
     }
 
-    assert.deepEqual(result, expectedJson)
+    assert.strictEqual(result, JSON.stringify(expectedJs))
   })
 })
