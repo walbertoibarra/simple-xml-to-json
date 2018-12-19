@@ -44,14 +44,20 @@ describe('parser.getOpenTag(str, index)', () => {
   it('should throw if open tag does not close correctly', () => {
     assert.throws(() => {
       getOpenTag('<testHello</test>', 0)
-    }, `Element type "testHello" must be followed by ">"`)
+    }, 'Element type "testHello" must be followed by ">"')
 
     assert.throws(() => {
       getOpenTag('<testHello/</test>', 0)
-    }, `Element type "testHello" must be followed by ">"`)
+    }, 'Element type "testHello" must be followed by ">"')
 
     assert.throws(() => {
       getOpenTag('<testHello/test>', 0)
-    }, `Element type "testHello" must be followed by ">"`)
+    }, 'Element type "testHello" must be followed by ">"')
+  })
+
+  it('should throw if open tag is a self-closing tag', () => {
+    assert.throws(() => {
+      getOpenTag('<test />', 0)
+    }, 'Element type "test" must be followed by ">"')
   })
 })
