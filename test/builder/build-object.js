@@ -44,6 +44,13 @@ describe('builder.buildObject(xmlDoc)', () => {
     assert.strictEqual(result.shipment.item, 'some item')
   })
 
+  it('should return null if element value is empty', () => {
+    const xmlDoc = parseString('<test></test>')
+    const result = buildObject(xmlDoc)
+
+    assert.isNull(result.test)
+  })
+
   it('should throw if element values contain invalid characters', () => {
     assert.throws(() => {
       const xmlDoc = parseString('<test>Hel>lo</test>')

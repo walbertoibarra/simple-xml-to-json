@@ -21,14 +21,14 @@ describe('builder.hasOnlyTextNode(xmlDoc)', () => {
   })
 
   it('should return false if it does not contain more than 1 nodes', () => {
-    const result = hasOnlyTextNode(xmlDoc[0])
+    const result = hasOnlyTextNode(xmlDoc[0].childNodes)
 
     assert.isFalse(result)
   })
 
   it('should return true if it contains only 1 node and it is a text node', () => {
-    const result = hasOnlyTextNode(xmlDoc[0].childNodes[1].childNodes[0])
+    const result = hasOnlyTextNode(xmlDoc[0].childNodes[1].childNodes)
 
-    assert.isFalse(result)
+    assert.isTrue(result)
   })
 })
