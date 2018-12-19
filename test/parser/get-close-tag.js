@@ -47,4 +47,13 @@ describe('parser.getCloseTag(str, openTag)', () => {
     assert.strictEqual(closeTag.tagName, '/cholesterol')
     assert.strictEqual(closeTag.start, 99)
   })
+
+  it('should throw if close tag is not found', () => {
+    assert.throws(() => {
+      const xmlStr = '<test>Hello</test2>'
+      const openTag = getOpenTag(xmlStr, 0)
+
+      getCloseTag(xmlStr, openTag)
+    }, `The element type "test" must be terminated by the matching close-tag "</test>"`)
+  })
 })

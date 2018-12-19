@@ -40,4 +40,18 @@ describe('parser.getOpenTag(str, index)', () => {
 
     assert.strictEqual(openTag.start, -1)
   })
+
+  it('should throw if open tag does not close correctly', () => {
+    assert.throws(() => {
+      getOpenTag('<testHello</test>', 0)
+    }, `Element type "testHello" must be followed by ">"`)
+
+    assert.throws(() => {
+      getOpenTag('<testHello/</test>', 0)
+    }, `Element type "testHello" must be followed by ">"`)
+
+    assert.throws(() => {
+      getOpenTag('<testHello/test>', 0)
+    }, `Element type "testHello" must be followed by ">"`)
+  })
 })

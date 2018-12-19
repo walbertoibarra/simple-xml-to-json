@@ -9,7 +9,7 @@ let xmlDoc
 
 describe('builder.buildObject(xmlDoc)', () => {
   before(() => {
-    const xmlStr = '<shipment>\n  <item>some item</item>\n  <from>Evan</from>\n  <to>PayStand</to>\n  <address>\n    <street>100 Enterprise Way</street>\n    <city>Scotts Valley</city>\n    <zip>95066</zip>\n  </address>\n</shipment>'
+    const xmlStr = '<shipment>\n  <item>\n  some item\n</item>\n  <from>Evan</from>\n  <to>PayStand</to>\n  <address>\n    <street>100 Enterprise Way</street>\n    <city>Scotts Valley</city>\n    <zip>95066</zip>\n  </address>\n</shipment>'
 
     xmlDoc = parseString(xmlStr)
   })
@@ -36,6 +36,26 @@ describe('builder.buildObject(xmlDoc)', () => {
     const result = buildObject(xmlDoc)
 
     assert.hasAllKeys(result.shipment.address, ['street', 'city', 'zip'])
+  })
+
+  it('should trim all element values', () => {
+    const result = buildObject(xmlDoc)
+
+    assert.strictEqual(result.shipment.item, 'some item')
+  })
+
+  it('should throw if element values contain invalid characters', () => {
+    assert.throws(() => {
+      const xmlDoc = parseString('<test>Hel>lo</test>')
+
+      buildObject(xmlDoc)
+    }, 'Invalid character ">" found')
+
+    assert.throws(() => {
+      const xmlDoc = parseString('<test>Hel/lo</test>')
+
+      buildObject(xmlDoc)
+    }, 'Invalid character "/" found')
   })
 
   it('should return a valid JSON object', () => {
